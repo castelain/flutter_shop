@@ -1,0 +1,39 @@
+import request from '@/utils/request'
+
+export function get{%entity%}s(listConfig = { 'pageNum': 1, 'pageSize': 10 }) {
+  return request({
+    url: '/wms/console/openapi/v1/{%entity%}/listPage',
+    method: 'post',
+    data: listConfig
+  })
+}
+
+export function get{%entity%}ById(id) {
+  return request({
+    url: `/wms/console/openapi/v1/{%entity%}/${id}`,
+    method: 'get'
+  })
+}
+
+export function add{%entity%}(data) {
+  return request({
+    url: '/wms/console/openapi/v1/{%entity%}/add',
+    method: 'post',
+    data
+  })
+}
+
+export function update{%entity%}(id, data) {
+  return request({
+    url: `/wms/console/openapi/v1/{%entity%}/${id}`,
+    method: 'put',
+    data
+  })
+}
+
+export function delete{%entity%}(id) {
+  return request({
+    url: `/wms/console/openapi/v1/{%entity%}/${id}`,
+    method: 'delete'
+  })
+}

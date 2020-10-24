@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue-双向数据绑定模拟</title>
+  </head>
+  <body>
+    <div id="app">
+      name: <input type="text" v-model="person.name" /><br />
+      age: <input type="text" v-model="person.age" /><br />
+      date: <input type="text" v-model="date" /><br />
+      <p>name: {{ person.name }}</p>
+      <p>age: {{ person.age }}</p>
+      <p>date: {{ date }}</p>
+      <p>fullName: {{ fullName }}</p>
+      <button v-on:click="changeName">change name</button><br>
+      title: <div v-html="title"></div>
+      <ul>
+        <li>No 1</li>
+        <li>No 2</li>
+        <li>No 3</li>
+      </ul>
+    </div>
+    <!-- <script src="./node_modules/vue/dist/vue.js"></script> -->
+    <script src="./MVVM.js"></script>
+    <script>
+      let vm = new Vue({
+        el: "#app",
+        data: {
+          person: {
+            name: "jasmine",
+            age: 23
+          },
+          date: "2020/3/31",
+          title: "<h1>This is a title!</h1>"
+        },
+        computed: {
+          fullName() {
+            return this.person.name + " wang";
+          }
+        },
+        methods: {
+          changeName() {
+            this.person.name = "小王";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

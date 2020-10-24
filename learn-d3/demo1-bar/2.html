@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>2-bar</title>
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="barchar">
+      <h2>A Bar Chart with D3 Javascript</h2>
+      <div id="bar-chart"></div>
+    </div>
+    <script>
+      let chartData = [10, 20, 30, 40, 50, 80, 90, 100, 200, 110, 120, 135];
+      const width = 720;
+      const height = 200;
+      const barWidth = 40;
+      const barOffset = 20;
+      let dynamicColor;
+
+      let yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(chartData)])
+        .range([0, height]);
+
+      let xScale = d3
+        .scaleOrdinal()
+        .domain(d3.range(0, chartData.length))
+        .range([0, width]);
+
+      let colors = d3
+        .scaleLinear()
+        .domain([
+          0,
+          chartData.length * 0.33,
+          chartData.length * 0.66,
+          chartData.length
+        ])
+        .range(["#d6e9c6", "#bce8f1", "#faebcc", "#ebccd1"]);
+
+      var xScale_1 = d3
+        .scaleLinear()
+        .domain([0, d3.max(chartData)])
+        .range([0, width]);
+
+      var yScale_1 = d3
+        .scaleLinear()
+        .domain([0, d3.max(chartData)])
+        .range([height, 0]);
+
+      let xAxis = d3
+        .axisTop()
+        .scale(xScale_1)
+        .ticks(chartData.length);
+
+      let yAxis = d3.axisLeft().scale(yScale_1);
+
+      let svg = d3
+        .select("#bar-chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .style("background", "#dff0d8");
+
+      let g = svg.append("g");
+
+      g.append("g")
+        .attr("transform", "translate(50, 10)")
+        .call(yAxis);
+
+      g.selectAll("rect")
+        .data(chartData)
+        .enter()
+        .append("rect")
+        .attr("width", barWidth)
+        .attr("x", (d, i) => i * (barWidth + barOffset))
+        .style("fill", (d, i) => colors(i))
+        .style("stroke", "#31708f")
+        .style("stroke-width", "5")
+        .on("mouseover", function(d) {
+          dynamicColor = this.style.fill;
+          d3.select(this).style("fill", "pink");
+        })
+        .on("mouseout", function(d) {
+          d3.select(this).style("fill", dynamicColor);
+        })
+        .transition()
+        .attr("height", d => yScale(d) - 10)
+        .attr("y", d => height - yScale(d))
+        .delay((data, i) => i * 100)
+        .duration(2000);
+
+      g.append("g")
+        .attr("transform", "translate(0," + (height - 10) + ")")
+        .call(xAxis);
+    </script>
+  </body>
+</html>

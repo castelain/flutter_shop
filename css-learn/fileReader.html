@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>文件读取</title>
+    <script type="text/javascript">
+      //检查浏览器是否支持FileReader
+      if (typeof FileReader == "undified") {
+        alert("您老的浏览器不行了！");
+      }
+
+      function showDataByURL() {
+        var resultFile = document.getElementById("fileDemo").files[0];
+        if (resultFile) {
+          //创建一个 FileReader 实例
+          var reader = new FileReader();
+          //读取文件数据
+          reader.readAsDataURL(resultFile);
+          /*读取的过程就相当于 加载过程 */
+          /*读取完毕  预览 */
+          reader.onload = function(e) {
+            var urlData = this.result;
+            document.getElementById("result").innerHTML +=
+              "<img src='" + urlData + "' alt='" + resultFile.name + "' />";
+          };
+        }
+      }
+
+      function showDataByText() {
+        var resultFile = document.getElementById("fileDemo").files[0];
+        if (resultFile) {
+          var reader = new FileReader();
+          reader.readAsText(resultFile, "gb2312");
+          reader.onload = function(e) {
+            var urlData = this.result;
+            document.getElementById("result").innerHTML += urlData;
+          };
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <input type="file" name="fileDemo" id="fileDemo" multiple="multiple" />
+    <input
+      type="button"
+      value="显示图片"
+      id="readAsDataURL"
+      onclick="showDataByURL();"
+    />
+    <input
+      type="button"
+      value="显示文本"
+      id="readAsText"
+      onclick="showDataByText();"
+    />
+    <div id="result"></div>
+  </body>
+</html>

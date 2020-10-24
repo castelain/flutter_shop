@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>nav-demo</title>
+        <style>
+            html {
+                padding: 0;
+            }
+            ul {
+                list-style: none;
+                background-color: lightyellow;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+            }
+            ul:after {
+                content: '';
+                display: inline-block;
+                width: 0;
+                height: 0;
+                line-height: 0;
+            }
+            li {
+                display: inline-block;
+            }
+            li > a {
+                text-decoration: none;
+                padding: 4px;
+            }
+            .actived {
+                background-color: skyblue;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li><a href="#">关于</a></li>
+            <li><a href="#">帮助</a></li>
+        </ul>
+        <script>
+            let ul = document.getElementsByTagName('ul')[0];
+            let lis = document.getElementsByTagName('li');
+            let activedItem = ul.firstElementChild;
+            activedItem.classList.add('actived');
+            for(let i = 0; i < lis.length; i++){
+                lis[i].onclick = function(event){
+                    activedItem.classList.remove('actived');
+                    activedItem = event.target;
+                    activedItem.classList.add('actived');
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>index</title>
+</head>
+<body>
+	<input type="text" onblur="handleBlur(event)" />
+	<p id="result"></p>
+	<script src="./findMaxCountChar.js"></script>
+	<script>
+		function handleBlur(e){
+			console.log('blur...');
+			let value = e.target.value;
+			let maxChar = findMaxCountChar(value);
+			document.getElementById('result').innerText = maxChar;
+		}
+	</script>
+</body>
+</html>

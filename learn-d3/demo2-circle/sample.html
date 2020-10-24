@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>圆形-简约版</title>
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+		<input type="range" min="10" max="40" value="20" id="rangeSize">
+		<br><br>
+    <svg width="800" height="600">
+		</svg>
+		<br><br>
+    <script>
+      let data = [32, 57, 112, 200];
+
+			// d3.select('svg')
+			// 	.selectAll("circle")
+			// 	.data(data)
+			// 	// .exit().remove()
+			// 	.enter().append('circle')
+			// 		.style("fill", "yellow")
+			// 		.attr("r", (d, i) => 10 * i + 30)
+			// 		.attr("cx", () => Math.random() * 720)
+			// 		.attr("cy", () => Math.random() * 720)
+			d3.select('svg')
+				.selectAll('circle')
+				.data(data).enter().append("circle")
+					.attr("r", 0)
+					.attr('rx', (d, i) => 10 + i*100)
+					.attr('ry', (d, i) => 50 + i*100)
+				.transition()
+					.attr("r", 100)
+
+			d3.select('#rangeSize').on('change', function(){
+				d3.selectAll('circle').style('r', this.value)
+				console.log('value: ', this.value)
+			})
+    </script>
+  </body>
+</html>

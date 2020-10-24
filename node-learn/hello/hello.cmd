@@ -1,0 +1,1 @@
+node "D:\keep-learning\node-learn\hello\hello.js" %*

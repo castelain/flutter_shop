@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>clear与margin重叠</title>
+</head>
+<body>
+	1.
+	<div style="background-color: aquamarine;">
+		<img src="./imgs//img-1.png" alt="img-1" style="float: left;">
+		<div style="clear: both; margin-bottom: 100px;">
+			clear: both;
+		</div>
+	</div>
+	<div style="margin-top: 100px;">本文字离图片的位置是？</div>
+	<br><br><br><br>
+	2.
+	<div style="background-color: aquamarine; overflow: hidden;">
+		<img src="./imgs/img-2.png" alt="img-2" style="float: left; margin-bottom: 100px;">
+	</div>
+	<div style="margin-top: 100px;">
+		本文字离图片的位置是？
+	</div>
+</body>
+</html>

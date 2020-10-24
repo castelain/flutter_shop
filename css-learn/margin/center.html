@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>margin-derection</title>
+	<style>
+        body {
+            background-color: skyblue;
+        }
+        div.child {
+            background-color: lightyellow;
+            width: 100px;
+			height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            /* transform: translate(-50%, -50%); */
+        }
+	</style>
+</head>
+<body>
+    <div class="container">
+        <div class="child">center</div>
+    </div>
+</body>
+</html>

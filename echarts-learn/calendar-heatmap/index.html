@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>日历图</title>
+	<script src="./echarts.min.js"></script>
+</head>
+<body>
+	<div id="main" style="width: 600px; height: 400px;"></div>
+	<script>
+		let main = document.getElementById('main')
+		let myChart = echarts.init(main, 'light')
+
+		let option = {
+			visualMap: {
+				show: false,
+				min: 0,
+				max: 1000
+			},
+			calendar: {
+				range: '2019'
+			},
+			series: {
+				type: 'heatmap',
+				coordinateSystem: 'calendar',
+				data: [['2019-01-02', 900], ['2019-01-22', 877], ['2019-05-26', 699]]
+			}
+		}
+
+		myChart.setOption(option)
+	</script>
+</body>
+</html>

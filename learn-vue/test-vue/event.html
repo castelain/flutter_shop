@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue-event</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+      let Child = {
+        template: `
+				<button @click="handleClick($event)">
+					Click Me {{countNum}}
+				</button>
+			`,
+        props: ["count"],
+        data() {
+          return {
+            countNum: this.count,
+          };
+        },
+        methods: {
+          handleClick(e) {
+            console.log("Button clicked: ", e);
+            this.countNum++;
+            this.$emit("select", "message from inner");
+            this.$emit("update:count", this.countNum);
+          },
+        },
+      };
+
+      let vm = new Vue({
+        el: "#app",
+        template: `
+					<div>
+						<!-- <child :count.sync="count" @select="handleSelect" @click.native="handleClick"></child> -->
+						<child :count="count" @update:count="count=$event" @select="handleSelect" @click.native="handleClick"></child>
+						<p>Number: {{ count }}</p>
+					</div>
+				`,
+        components: {
+          Child,
+        },
+        data: {
+          count: 0,
+        },
+        methods: {
+          handleClick() {
+            console.log("Child clicked!");
+          },
+          handleSelect(msg) {
+            console.log("Child select! msg: ", msg);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

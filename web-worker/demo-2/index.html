@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Worker demo-2</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div>2, 4, 6, 33, 553, 22, 10 升序排列：<span id="result"></span></div>
+    <script>
+			const span = document.querySelector('#result')
+			if (typeof Worker === 'function') {
+				let worker = new Worker('sort.js')
+
+				worker.postMessage([2, 4, 6, 33, 553, 22, 10])
+
+				worker.onmessage = function(event) {
+					const result = event.data
+
+					span.innerHTML = result
+				}
+			}
+		</script>
+  </body>
+</html>

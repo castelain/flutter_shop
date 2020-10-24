@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>brush</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+      #container {
+        background-color: #eeeeee;
+        width: 450px;
+        height: 450px;
+      }
+
+      .selected {
+        fill: red;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      const svgWidth = 450;
+      const svgHeight = 450;
+
+      let svg = d3
+        .select("#container")
+        .append("svg")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
+
+      let circle = svg
+        .append("circle")
+        .attr("cx", 100)
+        .attr("cy", 100)
+        .attr("r", 40)
+        .attr("fill", "pink");
+
+      svg.call(
+        d3
+          .brush()
+          .extent([
+            [0, 0],
+            [300, 300]
+          ])
+          .on("start end", brushTransition)
+      );
+
+      function brushTransition() {
+        let extent = d3.event.selection;
+        let isBrushed = false;
+
+        if (extent !== null) {
+          // 判断是否选中整个圆
+          isBrushed =
+            extent[0][0] <= +circle.attr("cx") - 40 &&
+            extent[1][0] >= +circle.attr("cx") + 40 &&
+            extent[0][1] <= +circle.attr("cy") - 40 &&
+            extent[1][1] >= +circle.attr("cy") + 40;
+        }
+
+        // if (isBrushed) {
+        //   circle
+        //     .transition()
+        //     .duration(200)
+        //     .style("fill", "red");
+        // } else {
+        //   circle
+        //     .transition()
+        //     .duration(200)
+        //     .style("fill", "pink");
+        // }
+
+				circle.classed('selected', isBrushed)
+      }
+    </script>
+  </body>
+</html>

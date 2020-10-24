@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>margin-derection</title>
+	<style>
+        body {
+            background-color: lightgreen;
+            margin: 0;
+        }
+		#container {
+			width: 200px;
+			height: 200px;
+            background-color: skyblue;
+		}
+		#container div {
+			width: 100px;
+			height: 100px;
+		}
+        #one {
+            background-color: lightyellow;
+            /* float: left; */
+            margin-bottom: -50px;
+        }
+        #two {
+            background-color: pink;
+            /* float: left; */
+        }
+        #three {
+            background-color: purple;
+            /* clear: both; */
+        }
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="one">one</div>
+        <div id="two">two</div>
+        <!-- <div id="three">sss</div> -->
+	</div>
+</body>
+</html>

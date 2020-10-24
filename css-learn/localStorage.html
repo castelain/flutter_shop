@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>localStorage-demo</title>
+  </head>
+  <body>
+    <h1>简易 WEB 留言板</h1>
+    <p><textarea id="msg" cols="60" rows="6"></textarea></p>
+    <button onclick="handleAdd()">新增留言</button>
+    <button onclick="handleDeleteLast()">删除最后一条留言</button>
+    <button onclick="handleDeleteAll()">清空留言</button>
+    <br />
+    <br />
+    <div id="box"></div>
+    <script>
+      function showMsg() {
+        let table = "<table border='1'>";
+        for (let i = 0; i < localStorage.length; i++) {
+          let key = localStorage.key(i);
+          let value = localStorage.getItem(key);
+          table += `
+                        <tr>
+                            <td>
+                                ${value}
+                            </td>
+                            <td>
+                                ${key}
+                            </td>
+                        </tr>
+                    `;
+        }
+        table += "</table>";
+        console.log("table: ", table);
+        document.getElementById("box").innerHTML = table;
+      }
+      function handleAdd() {
+        let time = new Date().toString();
+        let value = document.getElementById("msg").value;
+        localStorage.setItem(time, value);
+        showMsg();
+        console.log("add...");
+        document.getElementById("msg").value = null;
+      }
+      function handleDeleteLast() {
+        localStorage.removeItem(localStorage.key(localStorage.length - 1));
+        showMsg();
+      }
+      function handleDeleteAll() {
+        localStorage.clear();
+        showMsg();
+        console.log("delete all...");
+      }
+      showMsg();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test three column layout</title>
+    <style>
+      body {
+        margin: 0;
+        overflow-x: hidden;
+      }
+      .header {
+        position: fixed;
+      }
+      .header,
+      .footer {
+        background-color: skyblue;
+        width: 100vw;
+        height: 80px;
+        text-align: center;
+        color: white;
+      }
+      .footer {
+        clear: both;
+      }
+      .container > div {
+        display: inline-block;
+        margin-top: 80px;
+      }
+      .main {
+        background-color: lightgoldenrodyellow;
+        width: calc(100% - 200px);
+        height: 500px;
+      }
+      .left,
+      .right {
+        width: 100px;
+        height: 200px;
+      }
+      .left {
+        background-color: yellowgreen;
+        float: left;
+        height: 600px;
+      }
+      .right {
+        background-color: teal;
+        float: right;
+        /* height: 800px; */
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">header</header>
+    <div class="container">
+      <div class="main">main</div>
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <footer class="footer">footer</footer>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>scatterplot</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+      #container {
+        background-color: #eeeeee;
+        width: 450px;
+        height: 450px;
+      }
+
+      .selected {
+        opacity: 1 !important;
+        stroke: black;
+        stroke-width: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      const width = 450;
+      const height = 450;
+      const margin = { top: 20, right: 20, bottom: 30, left: 30 };
+
+      let svg = d3
+        .select("#container")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      let chartArea = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        .attr("width", width - margin.left - margin.right)
+        .attr("height", height - margin.top - margin.right);
+
+      d3.csv(
+        "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/iris.csv",
+        function(data) {
+          let x = d3
+            .scaleLinear()
+            .domain([4, 8])
+            .range([margin.left, width - margin.right]);
+
+          svg
+            .append("g")
+            .call(d3.axisBottom(x))
+            .attr("transform", "translate(0, " + (height - margin.top) + ")");
+
+          let y = d3
+            .scaleLinear()
+            .domain([0, 9])
+            .range([height - margin.top, 0]);
+
+          svg
+            .append("g")
+            .call(d3.axisLeft(y))
+            .attr("transform", "translate(" + margin.left + ", 0" + ")");
+
+          let color = d3
+            .scaleOrdinal()
+            .domain(["setosa", "versicolor", "virginica"])
+            .range(["#440154ff", "#21908dff", "#fde725ff"]);
+
+          let circles = chartArea
+            .selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => x(d.Sepal_Length))
+            .attr("cy", d => y(d.Petal_Length))
+            .attr("r", 8)
+            .style("fill", d => color(d.Species))
+            .style("opacity", 0.5)
+            .attr(
+              "transform",
+              "translate(" + -margin.left + " ," + -margin.top + ")"
+            );
+
+          svg.call(
+            d3
+              .brush()
+              .extent([
+                [0, 0],
+                [width, height]
+              ])
+              .on("start end", handleBrush)
+          );
+
+          function handleBrush() {
+            let extent = d3.event.selection;
+
+            circles.classed("selected", d =>
+              isBrushed(extent, x(d.Sepal_Length), y(d.Petal_Length))
+            );
+          }
+
+          function isBrushed(extent, cx, cy) {
+            let result = false;
+            if (extent) {
+              result =
+                extent[0][0] <= cx &&
+                extent[1][0] >= cx &&
+                extent[0][1] <= cy &&
+                extent[1][1] >= cy;
+            }
+            return result;
+          }
+        }
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>条形图--demo-1</title>
+    <link href="./index.css" ref="stylesheet/css" />
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <button onclick="changeColor('blue')">Blue</button>
+    <button onclick="changeColor('red')">Red</button>
+    <br /><br />
+
+    <div id="colorRadio">
+      <input type="radio" name="colors" value="red" />Red
+      <input type="radio" name="colors" value="green" />Green
+      <input type="radio" name="colors" value="blue" />Blue
+		</div>
+		<br><br>
+
+    <svg class="chart"></svg>
+    <script>
+      let data = [4, 8, 15, 16, 23, 42];
+
+      let width = 420;
+      let barHeight = 20;
+
+      let chart = d3
+        .select(".chart")
+        .attr("width", width)
+        .attr("height", barHeight * data.length);
+
+      let bar = chart
+        .selectAll("g")
+        .data(data)
+        .enter()
+        .append("g")
+        .attr("transform", function(d, i) {
+          return "translate(0," + barHeight * (i - 1) + ")";
+        });
+
+      bar
+        .append("rect")
+        .attr("width", function(d) {
+          return d * 10;
+        })
+        .attr("height", barHeight - 1)
+        .style("fill", "steelblue");
+
+      bar
+        .append("text")
+        .attr("x", function(d) {
+          return d * 10 - 30;
+        })
+        .attr("y", barHeight)
+        .attr("dy", "-.35em")
+        .text(function(d) {
+          return d;
+        })
+        .style("stroke", "white");
+
+      function changeColor(color) {
+        d3.selectAll("rect")
+          .transition()
+          .duration(2000)
+          .style("fill", color);
+      }
+
+      d3.select("#colorRadio").on("change", () => {
+        let checked = d3.select('input[name="colors"]:checked').attr("value");
+        d3.selectAll("rect").style("fill", checked);
+      });
+    </script>
+  </body>
+</html>

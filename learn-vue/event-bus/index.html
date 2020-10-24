@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue-event-bus-demo</title>
+  </head>
+  <body>
+    <div>
+      <button @click="handleAdd">添加 add 事件</button>
+      <br />
+      <button @click="handleDelete">添加 delete 事件</button>
+      <hr />
+      <button @click="handleEmit('add', 'Hello emit add!')">
+        触发 add 事件
+      </button>
+      <br />
+      <button @click="handleEmit('delete', 'Hello emit delete!')">
+        触发 delete 事件
+      </button>
+      <hr />
+      <button @click="handleOff('add')">移除 add 事件</button>
+      <br />
+      <button @click="handleOff('delete')">移除 delete 事件</button>
+      <hr />
+    </div>
+    <script>
+      class EventBus {
+        constructor() {
+          // 事件中心的核心
+          this._events = {};
+        }
+
+        // vm.$on(event, callback)
+        on(event, callback) {
+          (this._events[event] || (this._events[event] = [])).push(callback);
+        }
+
+        // vm.$off([event, callback])
+        off() {
+          let _args = [...arguments];
+          let length = _args.length;
+          switch (length) {
+            case 0:
+              for (let event in this._events) {
+                this._events[event] = [];
+              }
+              break;
+            case 1:
+              let _event0 = _args[0];
+              for (let event in this._events) {
+                if (_event0 === event) {
+                  this._events[event] = [];
+                }
+              }
+              break;
+            default:
+              let _event = _args[0];
+              let _callback = _args[1];
+              for (let event in this._events) {
+                if (_event === event) {
+                  this._events[event].map((item, index) => {
+                    if (item.toString() === _callback.toString()) {
+                      this._events[event].splice(index, 1);
+                    }
+                  });
+                }
+              }
+          }
+        }
+
+        // vm.$emit(eventName, [...args])
+        emit(eventName) {
+          let callbacks = this._events[eventName];
+          let params = [...arguments].slice(1);
+          callbacks &&
+            callbacks.map((_callback) => {
+              _callback(...params);
+            });
+        }
+
+        // vm.$once(event, callback)
+        once(event, callback) {
+					let that = this
+          function _on() {
+            that.off(event, _on);
+            callback.apply(that, arguments);
+          }
+					_on.callback = callback;
+					that.on(event, _on);
+        }
+      }
+
+      let eventBus = new EventBus();
+
+      function handleAdd() {
+        eventBus.on("add", (param) => {
+          console.log("on: 添加 add 事件回调，参数：", param);
+        });
+      }
+      function handleDelete() {
+        eventBus.on("delete", (param) => {
+          console.log("on: 添加 delete 事件回调， 参数：", param);
+        });
+      }
+
+      function handleEmit() {
+        console.log(eventBus._events);
+        eventBus.emit(...arguments);
+      }
+
+      function handleOff(event) {
+        eventBus.off(event);
+      }
+    </script>
+  </body>
+</html>

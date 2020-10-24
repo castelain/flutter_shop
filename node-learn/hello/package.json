@@ -1,0 +1,9 @@
+{
+  "name": "hello",
+  "bin": {
+    "hello": "hello"
+  },
+  "dependencies": {
+    "yargs": "^15.3.1"
+  }
+}

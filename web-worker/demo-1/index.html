@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>worker-demo-1</title>
+</head>
+<body>
+	<p>计数器：<span></span></p>
+	<button onclick="startWorker()">启动 worker</button>
+	<button onclick="stopWorker()">停止 worker</button>
+	<script>
+		let worker = null
+		let span = document.getElementsByTagName('span')[0]
+
+		function startWorker() {
+			if (typeof(Worker) !== 'undefined') {
+				if (!worker) {
+					worker = new Worker('./count.js')
+					console.log('启动 worker ...')
+				}
+				worker.onmessage = (e) => {
+					span.innerHTML = e.data
+				}
+			} else {
+				span.innerHTML = '当前浏览器不支持 worker'
+			}
+		}
+
+		function stopWorker() {
+			console.log('停止 worker ...')
+			if (worker) {
+				worker.terminate()
+			}
+		}
+	</script>
+</body>
+</html>
