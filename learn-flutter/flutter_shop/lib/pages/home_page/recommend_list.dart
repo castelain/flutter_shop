@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/home.dart';
+import 'package:flutter_shop/provide/goods_detail.dart';
+import 'package:flutter_shop/routers/application.dart';
+import 'package:provide/provide.dart';
 
 class RecommendList extends StatelessWidget {
   List<Recommend> recommendList;
@@ -13,7 +16,7 @@ class RecommendList extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10),
       color: Colors.white,
       child: Column(
-        children: [_buildTitle(), _buildRecommendList()],
+        children: [_buildTitle(), _buildRecommendList(context)],
       ),
     );
   }
@@ -34,28 +37,36 @@ class RecommendList extends StatelessWidget {
     );
   }
 
-  Widget _buildRecomendItem(Recommend item) {
+  Widget _buildRecomendItem(BuildContext context, Recommend item) {
     return Container(
       width: ScreenUtil().setWidth(250),
       height: ScreenUtil().setHeight(260),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           border: Border(right: BorderSide(color: Colors.black12, width: 1.0))),
-      child: Column(
-        children: [
-          Image.network(item.image),
-          Text('${item.mallPrice}'),
-          Text(
-            '￥${item.price}',
-            style: TextStyle(
-                color: Colors.black26, decoration: TextDecoration.lineThrough),
-          )
-        ],
+      child: InkWell(
+        onTap: () {
+          String id = item.goodsId;
+          Provide.value<GoodsDetailProvide>(context).requestGoodsDetailData(id);
+          Application.router.navigateTo(context, '/detail?id=$id');
+        },
+        child: Column(
+          children: [
+            Image.network(item.image),
+            Text('${item.mallPrice}'),
+            Text(
+              '￥${item.price}',
+              style: TextStyle(
+                  color: Colors.black26,
+                  decoration: TextDecoration.lineThrough),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildRecommendList() {
+  Widget _buildRecommendList(BuildContext context) {
     return Container(
       height: ScreenUtil().setHeight(300),
       decoration: BoxDecoration(
@@ -64,7 +75,7 @@ class RecommendList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: recommendList.length,
           itemBuilder: (context, index) {
-            return _buildRecomendItem(recommendList[index]);
+            return _buildRecomendItem(context, recommendList[index]);
           }),
     );
   }

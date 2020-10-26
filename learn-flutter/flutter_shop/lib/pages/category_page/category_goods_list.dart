@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/category_goods.dart';
 import 'package:flutter_shop/provide/category_goods_list.dart';
+import 'package:flutter_shop/provide/goods_detail.dart';
+import 'package:flutter_shop/routers/application.dart';
 import 'package:provide/provide.dart';
 
 class CategoryGoodsListWidget extends StatefulWidget {
@@ -50,28 +52,35 @@ class _CategoryGoodsListWidgetState extends State<CategoryGoodsListWidget>
       width: ScreenUtil().setWidth(280),
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Image.network(categoryGoods.image),
-          Text(
-            categoryGoods.goodsName,
-            style: TextStyle(
-              color: Colors.pink,
+      child: InkWell(
+        onTap: () {
+          String id = categoryGoods.goodsId;
+          Provide.value<GoodsDetailProvide>(context).requestGoodsDetailData(id);
+          Application.router.navigateTo(context, '/detail?id=$id');
+        },
+        child: Column(
+          children: [
+            Image.network(categoryGoods.image),
+            Text(
+              categoryGoods.goodsName,
+              style: TextStyle(
+                color: Colors.pink,
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('￥${categoryGoods.presentPrice}'),
-              Text(
-                '￥${categoryGoods.oriPrice}',
-                style: TextStyle(
-                    decoration: TextDecoration.lineThrough,
-                    color: Colors.black26),
-              )
-            ],
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('￥${categoryGoods.presentPrice}'),
+                Text(
+                  '￥${categoryGoods.oriPrice}',
+                  style: TextStyle(
+                      decoration: TextDecoration.lineThrough,
+                      color: Colors.black26),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

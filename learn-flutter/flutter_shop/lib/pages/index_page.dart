@@ -48,7 +48,7 @@ class _IndexPageState extends State<IndexPage> {
 
     return Container(
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(240, 240, 240, 1),
+        backgroundColor: Color.fromRGBO(250, 240, 240, 1),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: tabs,

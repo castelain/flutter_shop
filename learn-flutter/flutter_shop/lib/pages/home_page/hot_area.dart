@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_shop/provide/goods_detail.dart';
+import 'package:flutter_shop/routers/application.dart';
 import 'package:flutter_shop/service/service_method.dart';
+import 'package:provide/provide.dart';
 
 GlobalKey<_HotAreaState> hotAreaKey = GlobalKey<_HotAreaState>();
 
@@ -86,18 +89,20 @@ class HotAreaContent extends StatelessWidget {
       color: Colors.white,
       // padding: const EdgeInsets.all(10),
       child: Wrap(
-        children: _buildHotAreaItemList(),
+        children: _buildHotAreaItemList(context),
       ),
     );
   }
 
-  Widget _buildHotAreaItem(Map item) {
+  Widget _buildHotAreaItem(BuildContext context, Map item) {
     return Container(
       width: ScreenUtil().setWidth(375),
       padding: const EdgeInsets.all(10),
       child: InkWell(
-        onTap: () {
-          print('点击了火爆专区物品: ${item['name']}');
+        onTap: () async {
+          String id = item['goodsId'];
+          Provide.value<GoodsDetailProvide>(context).requestGoodsDetailData(id);
+          Application.router.navigateTo(context, '/detail?id=$id');
         },
         child: Column(
           children: [
@@ -126,10 +131,10 @@ class HotAreaContent extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildHotAreaItemList() {
+  List<Widget> _buildHotAreaItemList(BuildContext context) {
     if (!(items == null) && items.length > 0) {
       return items.map((item) {
-        return _buildHotAreaItem(item);
+        return _buildHotAreaItem(context, item);
       }).toList();
     } else {
       return [Text('')];

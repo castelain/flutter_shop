@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/home.dart';
+import 'package:flutter_shop/provide/goods_detail.dart';
+import 'package:flutter_shop/routers/application.dart';
+import 'package:provide/provide.dart';
 
 // 首页楼层区域
 class FloorArea extends StatelessWidget {
@@ -69,7 +72,9 @@ class FloorItem extends StatelessWidget {
       width: ScreenUtil().setWidth(375),
       child: InkWell(
         onTap: () {
-          print('点击了楼层物品: ${floorItem.goodsId}');
+          String id = floorItem.goodsId;
+          Provide.value<GoodsDetailProvide>(context).requestGoodsDetailData(id);
+          Application.router.navigateTo(context, '/detail?id=$id');
         },
         child: Image.network(floorItem.image),
       ),

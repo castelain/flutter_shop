@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_shop/model/home.dart';
-import 'package:flutter_shop/widgets/ad_banner.dart';
-import 'package:flutter_shop/widgets/floor_area.dart';
-import 'package:flutter_shop/widgets/hot_area.dart';
-import 'package:flutter_shop/widgets/leader_phone.dart';
-import 'package:flutter_shop/widgets/my_swiper.dart';
-import 'package:flutter_shop/widgets/recommend_list.dart';
-import 'package:flutter_shop/widgets/top_navigation_bar.dart';
+import 'package:flutter_shop/pages/home_page/hot_area.dart';
+
+import 'file:///D:/keep-learning/learn-flutter/flutter_shop/lib/pages/home_page/ad_banner.dart';
+import 'file:///D:/keep-learning/learn-flutter/flutter_shop/lib/pages/home_page/floor_area.dart';
+import 'file:///D:/keep-learning/learn-flutter/flutter_shop/lib/pages/home_page/leader_phone.dart';
+import 'file:///D:/keep-learning/learn-flutter/flutter_shop/lib/pages/home_page/my_swiper.dart';
+import 'file:///D:/keep-learning/learn-flutter/flutter_shop/lib/pages/home_page/recommend_list.dart';
+import 'file:///D:/keep-learning/learn-flutter/flutter_shop/lib/pages/home_page/top_navigation_bar.dart';
 
 import '../service/service_method.dart';
 
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     var formData = {'lon': '115.02932', 'lat': '35.76189'};
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 245, 245, 1),
       appBar: AppBar(
         title: Text('百姓生活+'),
       ),
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage>
           if (snapshot.hasData) {
             var data = jsonDecode(snapshot.data.toString());
             HomeModel homeContent = HomeModel.fromJson(data['data']);
-            List swiperList = homeContent.slides;
+            List<Slides> swiperList = homeContent.slides;
             List<Category> navigationItems = homeContent.category;
             String imgSrcAd = homeContent.advertesPicture?.pictureAddress;
             String leaderPhoneNum = homeContent.shopInfo?.leaderPhone;
