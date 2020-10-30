@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_shop/pages/detail_page/goods_details.dart';
 
 import 'goods_comments.dart';
@@ -42,7 +42,7 @@ class _TabBarTabViewState extends State<TabBarTabView>
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil().setWidth(750),
-      height: ScreenUtil().setHeight(2600),
+      height: ScreenUtil().setHeight(2200),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

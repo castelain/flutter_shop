@@ -74,7 +74,7 @@ class GoodsInfoArea extends StatelessWidget {
   Widget _buildSerialNum(String serialNum) {
     return Container(
       child: Text(
-        '编号：${serialNum}',
+        '编号：$serialNum',
         style: TextStyle(color: Colors.black38),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/provide/cart_provide.dart';
 import 'package:flutter_shop/provide/category_goods_list.dart';
 import 'package:flutter_shop/provide/goods_detail.dart';
 import 'package:flutter_shop/provide/sub_category.dart';
@@ -13,11 +14,13 @@ void main() {
   SubCategory subCategory = SubCategory();
   CategoryGoodsList categoryGoodsList = CategoryGoodsList();
   GoodsDetailProvide goodsDetailProvide = GoodsDetailProvide();
+  CartProvide cartProvide = CartProvide();
   Providers providers = Providers();
   providers
     ..provide(Provider<SubCategory>.value(subCategory))
     ..provide(Provider<CategoryGoodsList>.value(categoryGoodsList))
-    ..provide(Provider<GoodsDetailProvide>.value(goodsDetailProvide));
+    ..provide(Provider<GoodsDetailProvide>.value(goodsDetailProvide))
+    ..provide(Provider<CartProvide>.value(cartProvide));
 
   //全局注入路由
   FluroRouter router = FluroRouter();
