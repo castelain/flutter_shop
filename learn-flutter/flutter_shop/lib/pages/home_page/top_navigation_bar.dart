@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/home.dart';
+import 'package:flutter_shop/provide/sub_category.dart';
+import 'package:flutter_shop/routers/application.dart';
+import 'package:provide/provide.dart';
 
 // 首页顶部导航区域
 class TopNavigationBar extends StatelessWidget {
@@ -16,15 +19,16 @@ class TopNavigationBar extends StatelessWidget {
       child: GridView.count(
         crossAxisCount: 4,
         physics: NeverScrollableScrollPhysics(),
-        children: _buildNavigationItems(),
+        children: _buildNavigationItems(context),
       ),
     );
   }
 
-  Widget _buildNavigationItem(Category item) {
+  Widget _buildNavigationItem(BuildContext context, Category item) {
     return InkWell(
       onTap: () {
-        print('点击了顶部导航栏...');
+        Provide.value<SubCategory>(context).setCategoryId(item.mallCategoryId);
+        Application.router.navigateTo(context, '/categoryPage');
       },
       child: Container(
         padding: const EdgeInsets.all(10.0),
@@ -42,11 +46,11 @@ class TopNavigationBar extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildNavigationItems() {
+  List<Widget> _buildNavigationItems(BuildContext context) {
     List items;
     if (navigationItems.length > 4) {
       items = navigationItems.sublist(0, 4);
     }
-    return items.map((item) => _buildNavigationItem(item)).toList();
+    return items.map((item) => _buildNavigationItem(context, item)).toList();
   }
 }

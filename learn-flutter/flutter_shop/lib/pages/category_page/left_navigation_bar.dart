@@ -59,16 +59,31 @@ class _LeftNavigationBarState extends State<LeftNavigationBar> {
       setState(() {
         CategoryModel category = CategoryModel.fromJson(data);
         categoryList = category.data;
-        _currentIndex = 0;
       });
-      // 设置第一项分类对应的二级分类数据
+
+      String categoryId = Provide.value<SubCategory>(context).categoryId;
+      if (categoryId != "") {
+        for (int i = 0; i < categoryList.length; i++) {
+          if (categoryList[i].mallCategoryId == categoryId) {
+            setState(() {
+              _currentIndex = i;
+            });
+            break;
+          }
+        }
+      } else {
+        setState(() {
+          _currentIndex = 0;
+        });
+      }
       Provide.value<SubCategory>(context)
-          .setSubCategory(categoryList[0].bxMallSubDto);
-      // 设置第一项分类的第一项子类被选中
-      Provide.value<SubCategory>(context).setCategorySubId('');
+          .setSubCategory(categoryList[_currentIndex].bxMallSubDto);
+
       // 设置‘全部’的主 id
       Provide.value<SubCategory>(context)
-          .setCategoryId(categoryList[0].mallCategoryId);
+          .setCategoryId(categoryList[_currentIndex].mallCategoryId);
+      // 设置第一项子类被选中
+      Provide.value<SubCategory>(context).setCategorySubId('');
       // 设置第一项分类对应的商品列表数据
       _getCategoryGoodsList();
     });

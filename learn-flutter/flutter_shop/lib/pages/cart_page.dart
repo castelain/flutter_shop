@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/cart_goods.dart';
 import 'package:flutter_shop/pages/cart_page/bottom_operation_bar.dart';
 import 'package:flutter_shop/pages/cart_page/cart_item.dart';
+import 'package:flutter_shop/pages/index_page.dart';
 import 'package:flutter_shop/provide/cart_provide.dart';
-import 'package:flutter_shop/routers/application.dart';
 import 'package:provide/provide.dart';
 
 Widget _buildNoContent(BuildContext context) {
@@ -35,7 +35,11 @@ Widget _buildNoContent(BuildContext context) {
             style: TextStyle(color: Colors.white),
           ),
           onPressed: () {
-            Application.router.navigateTo(context, '/');
+            // Application.router.navigateTo(context, '/');
+            Navigator.pushAndRemoveUntil(context,
+                MaterialPageRoute(builder: (context) {
+              return IndexPage();
+            }), (route) => false);
           },
         ),
       )
