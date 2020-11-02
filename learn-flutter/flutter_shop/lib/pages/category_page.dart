@@ -16,6 +16,7 @@ class CategoryPage extends StatelessWidget {
       body: Container(
         width: ScreenUtil().setWidth(750),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LeftNavigationBar(),
             SingleChildScrollView(

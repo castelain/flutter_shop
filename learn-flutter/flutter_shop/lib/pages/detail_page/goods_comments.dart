@@ -8,25 +8,28 @@ import 'package:provide/provide.dart';
 class GoodsComments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Provide<GoodsDetailProvide>(
-      builder: (context, child, data) {
-        List<GoodsComment> comments = data.goodsDetailData.goodsComment;
-        AdvertesPicture advertesPicture = data.goodsDetailData.advertesPicture;
-        if (comments == null || advertesPicture == null) {
-          return Center(
-            child: Text('数据加载中...'),
-          );
-        } else {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _buildCommentList(comments),
-              _buldAdImage(advertesPicture.pICTUREADDRESS),
-            ],
-          );
-        }
-      },
-    ));
+    return Container(
+        width: ScreenUtil().setWidth(750),
+        child: Provide<GoodsDetailProvide>(
+          builder: (context, child, data) {
+            List<GoodsComment> comments = data.goodsDetailData.goodsComment;
+            AdvertesPicture advertesPicture =
+                data.goodsDetailData.advertesPicture;
+            if (comments == null || advertesPicture == null) {
+              return Center(
+                child: Text('数据加载中...'),
+              );
+            } else {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  _buildCommentList(comments),
+                  _buldAdImage(advertesPicture.pICTUREADDRESS),
+                ],
+              );
+            }
+          },
+        ));
   }
 
   Widget _buldAdImage(String img) {
