@@ -1,0 +1,7 @@
+<h2>First Component!</h2>
+<ol>
+    <li *ngFor="let item of items">
+        <a [routerLink]="['/item-detail', item]">{{item}}</a>
+    </li>
+</ol>
+<a routerLink="../second-component">Relative Route to secont component</a>

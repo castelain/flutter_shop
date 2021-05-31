@@ -1,0 +1,6 @@
+<label>
+  Name:
+  <input type="text" [formControl]="name">
+</label>
+<h4>Name is: {{name.value}}</h4>
+<button type="button" (click)="onUpdate()">Update Name</button>
