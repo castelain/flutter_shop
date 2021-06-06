@@ -1,0 +1,27 @@
+h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.form-box {
+    width: 400px;
+    margin: 40px auto;
+    padding: 20px 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    width: 100%;
+    margin: 10px;
+}
+
+input.box {
+    width: 80%;
+    height: 26px;
+    line-height: 26px;
+}

@@ -1,0 +1,44 @@
+<h2>用户信息登记表</h2>
+<ul class="form-box">
+    <li>
+        <label for="username">姓名
+					<input type="text" id="username" class="box" [(ngModel)]="userInfo.username">
+				</label>
+    </li>
+    <li>
+        性别&nbsp;
+        <label for="sex1"><input id="sex1" type="radio" name="sex" value="1" [(ngModel)]="userInfo.sex">&nbsp;男</label> &nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="sex2"><input id="sex2" type="radio" name="sex" value="2" [(ngModel)]="userInfo.sex">&nbsp;女</label>
+    </li>
+    <li>
+        <label for="city">
+					居住城市
+					<select id="city" [(ngModel)]="userInfo.city">
+						<option *ngFor="let city of cityList" [value]="city">{{city}}</option>
+					</select>
+				</label>
+    </li>
+    <li>
+        <label for="hobby">
+					爱好
+					<span *ngFor="let hobby of userInfo.hobbyList">
+						<label [for]="hobby.title">
+							<input type="checkbox" [name]="hobby.title" [id]="hobby.title" [(ngModel)]="hobby.checked">
+								{{hobby.title}}
+							</label>
+        </span>
+        </label>
+    </li>
+    <li>
+        <label for="mark">
+					特殊备注
+					<textarea name="mark" id="mark" cols="30" rows="10" class="box" [(ngModel)]="userInfo.mark"></textarea>
+				</label>
+    </li>
+</ul>
+<div>
+    <h3>表单数据</h3>
+    <p>
+        {{userInfo | json}}
+    </p>
+</div>

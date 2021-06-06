@@ -1,0 +1,17 @@
+<div>
+    <input type="text" [(ngModel)]="keyword" (keyup)="addTodoItem($event)">
+</div>
+<hr>
+<h2>代办事项</h2>
+<ul>
+    <li *ngFor="let todoItem of todoList" [hidden]="!todoItem.isFinished">
+        {{todoItem.title}}
+    </li>
+    <!-- <input type="checkbox" [(ngModel)]="todoItem.isFinished"> -->
+</ul>
+<h2>已完成事项</h2>
+<!-- <ul>
+    <li *ngFor="let todoItem of todoList" [hidden]="todoItem.isFinished">
+        <input type="checkbox" [(ngModel)]="todoItem.isFinished">{{todoItem.title}}
+    </li>
+</ul> -->
